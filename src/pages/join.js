@@ -70,7 +70,7 @@ const Join = () => {
         ...prev,
         [col]: {
           checked: checked,
-          msg: i18n[msg],
+          msg: i18n[msg] ?? msg,
         },
       };
     });
