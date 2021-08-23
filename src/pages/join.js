@@ -3,12 +3,10 @@ import { i18nContext, popBoxContext } from "../components/context";
 import { MobileAndTabletCheck } from "../components/common";
 import api from "../service/api";
 import Inputbox from "../components/inputbox";
-import logo from "../styles/img/logo.png";
-import text from "../styles/img/text.png";
-import member from "../styles/img/member.svg";
-import password from "../styles/img/password.svg";
-import phone from "../styles/img/phone.svg";
-import config from "../config";
+import { getLogoSrc, getTitleSrc, getIconSrc } from "../components/styleDefs";
+import config, { defStyleFolder } from "../config";
+
+const _style = defStyleFolder();
 
 const initValue = {
   username: "",
@@ -225,8 +223,8 @@ const Join = () => {
 
   return (
     <div className="wallpaper">
-      <img src={logo} className="logo" alt="nova88" />
-      <img src={text} className="title" alt="nova88" />
+      <img src={getLogoSrc(_style)} className="logo" alt="nova88" />
+      <img src={getTitleSrc(_style)} className="title" alt="nova88" />
       <form onSubmit={clickSubmit} id="submitForm">
         <div className="info">
           <div className="tag">
@@ -245,7 +243,7 @@ const Join = () => {
           </div>
           <div className="inputModule" onSubmit={clickSubmit}>
             <Inputbox
-              icon={<img src={member} alt="nova88" />}
+              icon={<img src={getIconSrc(_style).member_1} alt="nova88" />}
               value={userValue.username}
               placeholder={i18n.lbl_Username}
               onChange={EditField.bind(null, "username")}
@@ -261,7 +259,7 @@ const Join = () => {
               </div>
             )}
             <Inputbox
-              icon={<img src={password} alt="nova88" />}
+              icon={<img src={getIconSrc(_style).password_1} alt="nova88" />}
               value={userValue.password}
               msg={msg.password.msg}
               showMsg={msg.password.checked === false}
@@ -280,7 +278,7 @@ const Join = () => {
               </div>
             )}
             <Inputbox
-              icon={<img src={phone} alt="nova88" />}
+              icon={<img src={getIconSrc(_style).phone_1} alt="nova88" />}
               value={userValue.phone}
               msg={msg.phone.msg}
               showMsg={msg.phone.checked === false}

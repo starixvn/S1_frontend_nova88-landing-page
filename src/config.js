@@ -16,6 +16,17 @@ const getAffiliate = (langId) => {
     : `https://aff.${arr.join(".")}/?lang=${langId}`;
 };
 
+export const defStyleFolder = () => {
+  return `desktopStyle1`;
+};
+
+// export const defStyleName = {
+//   desktopStyle1: "desktopStyle1",
+//   desktopStyle2: "desktopStyle2",
+//   desktopStyle3: "desktopStyle3",
+//   desktopStyle4: "desktopStyle4",
+// };
+
 export const siteInfo = (langId) => {
   return {
     siteName,
@@ -52,6 +63,11 @@ export const siteInfo = (langId) => {
   };
 };
 
+const domainDef = {
+  d_indo: "https://nova88-indo.info",
+  m_indo: "https://m.nova88-indo.info/id/",
+};
+
 export const cloudImgURL = "https://image.0814media.net";
 export const cloudBannerImgURL = "https://banner.0814media.net";
 
@@ -64,8 +80,8 @@ const SiteURL =
         imgUrl: "",
         t_and_cURL: "",
         cloudImgURL,
-        openMobileURL: "https://m.nova88.net",
-        openDesktopURL: "https://www.nova88.net",
+        openMobileURL: domainDef.m_indo,
+        openDesktopURL: domainDef.d_indo,
       }
     : {
         siteName,
@@ -80,8 +96,8 @@ const SiteURL =
         t_and_cURL: "https://www.n88dev.com",
         openURL: "",
         cloudImgURL,
-        openMobileURL: "https://www.n88dev.com",
-        openDesktopURL: "https://www.n88dev.com",
+        openMobileURL: domainDef.m_indo,
+        openDesktopURL: domainDef.d_indo,
       };
 
 axios.defaults.baseURL = SiteURL.apiURL;

@@ -1,6 +1,6 @@
 import React from "react";
 import path from "./path";
-import { Router, createHistory, LocationProvider } from "@reach/router";
+import { createHistory, LocationProvider } from "@reach/router";
 import Join from "./pages/join";
 import Wrapper from "./components/wrapper";
 import PopBox from "./components/popBox";

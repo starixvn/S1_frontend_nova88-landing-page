@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-// import { GACode, defStyleFolder } from "./config";
+import { defStyleFolder } from "./config";
 // import { Helmet } from "react-helmet";
 
-// const _style = defStyleFolder();
+const _style = defStyleFolder();
 
 class Content extends Component {
   constructor(props) {
@@ -17,8 +17,8 @@ class Content extends Component {
     });
   };
   importStyle = async () => {
-    await import(`./styles/css/reset.css`);
-    await import(`./styles/css/style.css`);
+    await import(`./styles/${_style}/css/reset.css`);
+    await import(`./styles/${_style}/css/style.css`);
   };
   render() {
     return (
