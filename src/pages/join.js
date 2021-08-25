@@ -31,7 +31,9 @@ const Join = () => {
   const xxxRef = useRef(null);
   useEffect(() => {
     isMountedRef.current = true;
-    return () => (isMountedRef.current = false);
+    return () => {
+      isMountedRef.current = false;
+    };
   });
 
   const EditField = (col, e) => {
@@ -52,16 +54,16 @@ const Join = () => {
 
     if (col === "username") {
       let result = await usernameCheck(val);
-      checked = result.checked;
-      msg = result.msg;
+      checked = result?.checked;
+      msg = result?.msg;
     } else if (col === "password") {
       let result = passwordCheck(val);
       checked = result.checked;
       msg = result.msg;
     } else if (col === "phone") {
       let result = await phoneCheck(val);
-      checked = result.checked;
-      msg = result.msg;
+      checked = result?.checked;
+      msg = result?.msg;
     }
     setMsg((prev) => {
       return {
@@ -86,7 +88,8 @@ const Join = () => {
         }
       }
     } catch (error) {
-      if (isMountedRef.current && error.response) {
+      console.error(error);
+      if (isMountedRef.current && error?.response) {
         alert(i18n["msg_ApiServerError"]);
       }
     }
@@ -119,14 +122,20 @@ const Join = () => {
       checked = false;
       msg = "lbl_PhoneTooltip";
     } else {
-      const res = await api.site.ExistsPhoneNo({
-        AreaCode: "+62",
-        Phone: val,
-      });
-
-      if (res.data?.errorCode === 0 && res.data?.data === true) {
-        checked = false;
-        msg = "msg_PhoneExisted";
+      try {
+        const res = await api.site.ExistsPhoneNo({
+          AreaCode: "+62",
+          Phone: val,
+        });
+        if (res.data.errorCode === 0 && res.data.data === true) {
+          checked = false;
+          msg = "msg_PhoneExisted";
+        }
+      } catch (error) {
+        console.error(error);
+        if (isMountedRef.current && error?.response) {
+          alert(i18n["msg_ApiServerError"]);
+        }
       }
     }
     return { checked, msg };
@@ -145,7 +154,7 @@ const Join = () => {
         msg = "msg_PasswordVaildate";
       } else if (result_nameRepeatCheck?.result === false) {
         checked = false;
-        msg = result_nameRepeatCheck.msg;
+        msg = result_nameRepeatCheck?.msg;
       }
     }
 

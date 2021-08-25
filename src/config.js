@@ -71,8 +71,8 @@ const SiteURL =
         imgUrl: "https://www.n88dev.com",
         t_and_cURL: "https://www.n88dev.com",
         openURL: "",
-        openMobileURL: "https://m.n88dev.com/",
-        openDesktopURL: "https://www.n88dev.com/",
+        openMobileURL: "https://m.n88dev.com",
+        openDesktopURL: "https://www.n88dev.com",
       };
 
 axios.defaults.baseURL = SiteURL.apiURL;
