@@ -3,19 +3,6 @@ import axios from "axios";
 const siteName = "Nova88";
 export const siteId = 1;
 
-const getAffiliate = (langId) => {
-  if (typeof window === `undefined`) return "";
-
-  const fullPath = window.location.hostname;
-  const arr = fullPath.split(".");
-
-  return arr.length === 3
-    ? `https://aff.${arr
-        .filter((p, idx) => idx !== 0)
-        .join(".")}/?lang=${langId}`
-    : `https://aff.${arr.join(".")}/?lang=${langId}`;
-};
-
 export const defStyleFolder = () => {
   return `desktopStyle1`;
 };
@@ -27,20 +14,13 @@ export const defStyleFolder = () => {
 //   desktopStyle4: "desktopStyle4",
 // };
 
-export const siteInfo = (langId) => {
+export const siteInfo = () => {
   return {
     siteName,
     siteId: 1,
-    affiliateLink: getAffiliate(langId),
     siteDefaultLang: "en",
-    // siteLangList: ["en", "cs", "th_en", "th", "id_en", "id", "hi_en", "hi"],
-    // siteCountryList: ["MY", "TH", "ID", "HI"],
-    siteLangList: ["en", "cs", "th_en", "th", "id_en", "id"],
-    siteCountryList: ["MY", "CS", "TH", "ID"],
-    logo: "https://image.0814media.net/SiteSkin/img/logo.png",
     description:
       "Nova88 is the world leading sportsbook offering one of the kind gambling experience in live betting covering all sports, casino, slots, keno, esports, rng casino, fantasy sports, virtual sports, lottery, live casino, live dealer, bingo, and racing.",
-    iosIcon: "Nova88_256_2.png",
     socialMedia: {
       fb: {
         icon: "facebook2",
@@ -68,9 +48,6 @@ const domainDef = {
   m_indo: "https://m.nova88-indo.info/id/",
 };
 
-export const cloudImgURL = "https://image.0814media.net";
-export const cloudBannerImgURL = "https://banner.0814media.net";
-
 const SiteURL =
   process.env.NODE_ENV === "production"
     ? {
@@ -79,7 +56,6 @@ const SiteURL =
         openURL: "",
         imgUrl: "",
         t_and_cURL: "",
-        cloudImgURL,
         openMobileURL: domainDef.m_indo,
         openDesktopURL: domainDef.d_indo,
       }
@@ -95,9 +71,8 @@ const SiteURL =
         imgUrl: "https://www.n88dev.com",
         t_and_cURL: "https://www.n88dev.com",
         openURL: "",
-        cloudImgURL,
-        openMobileURL: domainDef.m_indo,
-        openDesktopURL: domainDef.d_indo,
+        openMobileURL: "https://m.n88dev.com/",
+        openDesktopURL: "https://www.n88dev.com/",
       };
 
 axios.defaults.baseURL = SiteURL.apiURL;

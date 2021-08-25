@@ -59,7 +59,7 @@ const Join = () => {
       checked = result.checked;
       msg = result.msg;
     } else if (col === "phone") {
-      let result = phoneCheck(val);
+      let result = await phoneCheck(val);
       checked = result.checked;
       msg = result.msg;
     }
@@ -108,10 +108,9 @@ const Join = () => {
     return { checked, msg };
   };
 
-  const phoneCheck = (val) => {
+  const phoneCheck = async (val) => {
     let checked = true;
     let msg = "";
-
     const regx = /^[0-9\s]*$/;
     if (!val) {
       checked = false;
@@ -119,6 +118,16 @@ const Join = () => {
     } else if (!regx.test(val)) {
       checked = false;
       msg = "lbl_PhoneTooltip";
+    } else {
+      const res = await api.site.ExistsPhoneNo({
+        AreaCode: "+62",
+        Phone: val,
+      });
+
+      if (res.data?.errorCode === 0 && res.data?.data === true) {
+        checked = false;
+        msg = "msg_PhoneExisted";
+      }
     }
     return { checked, msg };
   };
@@ -146,7 +155,8 @@ const Join = () => {
   const checkAll = async () => {
     let _usernameCheck = await usernameCheck(userValue.username);
     let _passwordCheck = passwordCheck(userValue.password);
-    let _phoneCheck = phoneCheck(userValue.phone);
+    let _phoneCheck = await phoneCheck(userValue.phone);
+
     let checked =
       _usernameCheck.checked && _passwordCheck.checked && _phoneCheck.checked;
     if (!checked) {
@@ -155,7 +165,7 @@ const Join = () => {
           ...prev,
           username: {
             checked: _usernameCheck.checked,
-            msg: i18n[_usernameCheck.msg],
+            msg: i18n[_usernameCheck.msg] ?? _usernameCheck.msg,
           },
           password: {
             checked: _passwordCheck.checked,
@@ -286,6 +296,14 @@ const Join = () => {
               onChange={EditField.bind(null, "phone")}
               onBlur={checkValue.bind(null, "phone")}
               inputType="tel"
+              areaCode={
+                <input
+                  style={{ width: "2rem" }}
+                  readOnly
+                  type="tel"
+                  placeholder="+62"
+                />
+              }
             />
             {msg.phone.msg && (
               <div
@@ -336,6 +354,12 @@ const Join = () => {
           type="hidden"
           name="UserLang"
           value={defaultLangId}
+          onChange={() => {}}
+        />
+        <input
+          type="hidden"
+          name="RedirectUrl"
+          value="id/deposit"
           onChange={() => {}}
         />
       </form>

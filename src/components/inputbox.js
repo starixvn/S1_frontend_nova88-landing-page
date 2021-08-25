@@ -8,10 +8,12 @@ const InputBox = ({
   onChange,
   onBlur,
   value,
+  areaCode,
 }) => {
   return (
     <div>
       {icon}
+      {areaCode}
       <input
         type={inputType ?? "text"}
         onChange={onChange}
@@ -24,6 +26,7 @@ const InputBox = ({
 };
 
 InputBox.propTypes = {
+  areaCode: PropTypes.node,
   icon: PropTypes.node,
   placeholder: PropTypes.string,
   inputType: PropTypes.string,
