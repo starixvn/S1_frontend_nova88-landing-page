@@ -16,11 +16,12 @@ body > div{
   height: 100%;
 }
 .wallpaper{
-  background: url(../img/bg-v2.jpg)no-repeat center / cover;
+  background: url(../img/bg-v2.jpg)no-repeat top center / cover;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   flex-flow: column;
+  height: 100%;
 }
 .logo{
   width: 286px;
@@ -165,8 +166,8 @@ a{
   .wallpaper{
     background: url(../img/mbbg.jpg)no-repeat top center / 100% auto;
     /* padding-top: 19vw; */
-    height: 100%;
-    justify-content: flex-start;
+    /* height: 100%;
+    justify-content: flex-start; */
   }
   .logo {
     width: 44vw;
