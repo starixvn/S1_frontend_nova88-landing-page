@@ -9,17 +9,22 @@ html,body{
 button{
   cursor: pointer;
 }
+#root{
+  height: 100%;
+}
+body > div{
+  height: 100%;
+}
 .wallpaper{
   background: url(../img/bg-v2.jpg)no-repeat center / cover;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-flow: column;
-  padding-top: 65px;
-  height: calc(100% - 65px);
 }
 .logo{
   width: 286px;
+  padding-top: 65px;
 }
 .info{
   display: flex;
@@ -42,6 +47,9 @@ button{
 }
 .tag div:last-child{
   background: #00264d;
+  color: white;
+}
+.tag a{
   color: white;
 }
 .inputModule{
