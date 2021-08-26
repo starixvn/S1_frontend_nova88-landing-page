@@ -164,12 +164,13 @@ a{
 @media screen and (max-width:767px) {
   .wallpaper{
     background: url(../img/mbbg.jpg)no-repeat top center / 100% auto;
-    padding-top: 19vw;
-    height: calc(100% - 19vw);
+    /* padding-top: 19vw; */
+    height: 100%;
     justify-content: flex-start;
   }
   .logo {
     width: 44vw;
+    padding-top: 19vw;
   }
   .title{
     width: 66vw;
