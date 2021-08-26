@@ -44,7 +44,7 @@ export const siteInfo = () => {
 };
 
 const domainDef = {
-	d_indo: "https://nova88-indo.info",
+	d_indo: "https://www.nova88-indo.info",
 	m_indo: "https://m.nova88-indo.info"
 };
 
