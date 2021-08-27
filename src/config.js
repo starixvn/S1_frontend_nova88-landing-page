@@ -44,10 +44,11 @@ export const siteInfo = () => {
 };
 
 const domainDef = {
-  d_indo: "https://www.nova88-indo.info",
-  m_indo: "https://m.nova88-indo.info",
+  d_indo: "https://www.nova88id4.com/",
+  m_indo: "https://m.nova88id4.com/",
 };
 
+// https://www.nova88id4.com/id/?affCode=48968
 const SiteURL =
   process.env.NODE_ENV === "production"
     ? {

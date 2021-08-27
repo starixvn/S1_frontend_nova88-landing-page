@@ -365,12 +365,6 @@ const Join = () => {
           value={defaultLangId}
           onChange={() => {}}
         />
-        <input
-          type="hidden"
-          name="RedirectUrl"
-          value="id/deposit"
-          onChange={() => {}}
-        />
       </form>
       <div className="popBtn">
         <button onClick={() => handlePopBox({ className: "tentang" })}>
