@@ -5,7 +5,6 @@ import api from "../service/api";
 import Inputbox from "../components/inputbox";
 import { getLogoSrc, getTitleSrc, getIconSrc } from "../components/styleDefs";
 import config, { defStyleFolder, defUrlPattern } from "../config";
-
 const _style = defStyleFolder();
 
 const initValue = {
