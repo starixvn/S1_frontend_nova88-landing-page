@@ -3,6 +3,7 @@ import { i18nContext, popBoxContext } from "../components/context";
 import { MobileAndTabletCheck } from "../components/common";
 import api from "../service/api";
 import Inputbox from "../components/inputbox";
+import PhoneBox from "../components/phoneBox";
 import { getLogoSrc, getTitleSrc, getIconSrc } from "../components/styleDefs";
 import config, { defStyleFolder, defUrlPattern } from "../config";
 
@@ -11,13 +12,15 @@ const _style = defStyleFolder();
 const initValue = {
 	username: "",
 	password: "",
-	phone: ""
+	phone: "",
+	email: ""
 };
 
 const initTip = {
 	username: { checked: null, msg: "" },
 	password: { checked: null, msg: "" },
-	phone: { checked: null, msg: "" }
+	phone: { checked: null, msg: "" },
+	email: { checked: null, msg: "" }
 };
 
 const defaultLangId = "id";
@@ -64,6 +67,10 @@ const Join = () => {
 			let result = await phoneCheck(val);
 			checked = result?.checked;
 			msg = result?.msg;
+		} else if (col === "email") {
+			let result = await emailCheck(val);
+			checked = result?.checked;
+			msg = result?.msg;
 		}
 		setMsg(prev => {
 			return {
@@ -81,6 +88,24 @@ const Join = () => {
 			const res = await api.site.ExistsUserName({
 				UserName: val,
 				LangId: defaultLangId
+			});
+			if (isMountedRef.current) {
+				if (res.data.errorCode === 0) {
+					return { result: !res.data.data, msg: res.data.message };
+				}
+			}
+		} catch (error) {
+			console.error(error);
+			if (isMountedRef.current && error?.response) {
+				alert(i18n["msg_ApiServerError"]);
+			}
+		}
+	};
+
+	const emailRepeatCheck = async val => {
+		try {
+			const res = await api.site.ExistsEmail({
+				Email: val
 			});
 			if (isMountedRef.current) {
 				if (res.data.errorCode === 0) {
@@ -162,15 +187,40 @@ const Join = () => {
 		return { checked, msg };
 	};
 
+	const emailCheck = async val => {
+		let checked = true;
+		let msg = "";
+		const regx =
+			/^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+
+		if (val === "") {
+			checked = false;
+			msg = "msg_MailWrongFormat";
+		} else if (!regx.test(val)) {
+			checked = false;
+			msg = "msg_MailWrongFormat";
+		} else {
+			const result_emailRepeatCheck = await emailRepeatCheck(val);
+			if (result_emailRepeatCheck?.result === false) {
+				checked = false;
+				msg = result_emailRepeatCheck?.msg;
+			}
+		}
+
+		return { checked, msg };
+	};
+
 	const checkAll = async () => {
 		let _usernameCheck = await usernameCheck(userValue.username);
 		let _passwordCheck = passwordCheck(userValue.password);
 		let _phoneCheck = await phoneCheck(userValue.phone);
+		let _emailCheck = await emailCheck(userValue.email);
 
 		let checked =
 			_usernameCheck.checked &&
 			_passwordCheck.checked &&
-			_phoneCheck.checked;
+			_phoneCheck.checked &&
+			_emailCheck.checked;
 		if (!checked) {
 			setMsg(prev => {
 				return {
@@ -186,12 +236,17 @@ const Join = () => {
 					phone: {
 						checked: _phoneCheck.checked,
 						msg: i18n[_phoneCheck.msg]
+					},
+					email: {
+						checked: _emailCheck.checked,
+						msg: i18n[_emailCheck.msg]
 					}
 				};
 			});
 		}
 		return checked;
 	};
+
 	const clickSubmit = async e => {
 		e.preventDefault();
 		const result = await checkAll();
@@ -252,13 +307,8 @@ const Join = () => {
 					<div className="tag">
 						<div>{i18n.lbl_Register}</div>
 						<div>
-							<a
-								href={`${
-									MobileAndTabletCheck()
-										? config.openMobileURL
-										: config.openDesktopURL
-								}/${defUrlPattern}`}>
-								{i18n.lbl_Login}
+							<a href={defUrlPattern}>
+								{i18n.lbl_Login?.toUpperCase()}
 							</a>
 						</div>
 					</div>
@@ -266,7 +316,7 @@ const Join = () => {
 						<Inputbox
 							icon={
 								<img
-									src={getIconSrc(_style).member_1}
+									src={getIconSrc(_style).member_2}
 									alt="nova88"
 								/>
 							}
@@ -288,7 +338,7 @@ const Join = () => {
 						<Inputbox
 							icon={
 								<img
-									src={getIconSrc(_style).password_1}
+									src={getIconSrc(_style).password_2}
 									alt="nova88"
 								/>
 							}
@@ -310,10 +360,10 @@ const Join = () => {
 								{msg.password.msg}
 							</div>
 						)}
-						<Inputbox
+						<PhoneBox
 							icon={
 								<img
-									src={getIconSrc(_style).phone_1}
+									src={getIconSrc(_style).phone_2}
 									alt="nova88"
 								/>
 							}
@@ -324,14 +374,7 @@ const Join = () => {
 							onChange={EditField.bind(null, "phone")}
 							onBlur={checkValue.bind(null, "phone")}
 							inputType="tel"
-							areaCode={
-								<input
-									style={{ width: "2rem" }}
-									readOnly
-									type="tel"
-									placeholder="+62"
-								/>
-							}
+							areaCode="+62"
 						/>
 						{msg.phone.msg && (
 							<div
@@ -339,6 +382,29 @@ const Join = () => {
 									msg.phone.checked === false ? " active" : ""
 								}`}>
 								{msg.phone.msg}
+							</div>
+						)}
+						<Inputbox
+							icon={
+								<img
+									src={getIconSrc(_style).email_2}
+									alt="nova88"
+								/>
+							}
+							value={userValue.email}
+							msg={msg.email.msg}
+							showMsg={msg.email.checked === false}
+							placeholder={i18n.lbl_Email}
+							onChange={EditField.bind(null, "email")}
+							onBlur={checkValue.bind(null, "email")}
+							inputType="email"
+						/>
+						{msg.email.msg && (
+							<div
+								className={`tip${
+									msg.email.checked === false ? " active" : ""
+								}`}>
+								{msg.email.msg}
 							</div>
 						)}
 					</div>
