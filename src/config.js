@@ -4,7 +4,7 @@ const siteName = "Nova88";
 export const siteId = 1;
 
 export const defStyleFolder = () => {
-	return `desktopStyle2`;
+	return `desktopStyle1`;
 };
 
 // export const defStyleName = {
@@ -44,11 +44,11 @@ export const siteInfo = () => {
 };
 
 const domainDef = {
-	m: "https://m.freemart99.com",
-	d: "https://www.freemart99.com"
+	d_indo: "https://www.nova88id4.com",
+	m_indo: "https://m.nova88id4.com"
 };
 
-export const defUrlPattern = "https://cli.re/nova88sports";
+export const defUrlPattern = "id/?affCode=48968";
 
 const SiteURL =
 	process.env.NODE_ENV === "production"
@@ -58,8 +58,8 @@ const SiteURL =
 				openURL: "",
 				imgUrl: "",
 				t_and_cURL: "",
-				openMobileURL: domainDef["m"],
-				openDesktopURL: domainDef["d"]
+				openMobileURL: domainDef.m_indo,
+				openDesktopURL: domainDef.d_indo
 		  }
 		: {
 				siteName,
