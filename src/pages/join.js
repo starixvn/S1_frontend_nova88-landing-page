@@ -307,7 +307,12 @@ const Join = () => {
 					<div className="tag">
 						<div>{i18n.lbl_Register}</div>
 						<div>
-							<a href={defUrlPattern}>
+							<a
+								href={
+									MobileAndTabletCheck()
+										? defUrlPattern["m"]
+										: defUrlPattern["d"]
+								}>
 								{i18n.lbl_Login?.toUpperCase()}
 							</a>
 						</div>
@@ -460,7 +465,11 @@ const Join = () => {
 				<input
 					type="hidden"
 					name="RedirectUrl"
-					value={defUrlPattern}
+					value={
+						MobileAndTabletCheck()
+							? defUrlPattern["m"]
+							: defUrlPattern["d"]
+					}
 					onChange={() => {}}
 				/>
 			</form>

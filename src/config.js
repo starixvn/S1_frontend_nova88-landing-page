@@ -48,7 +48,10 @@ const domainDef = {
 	d: "https://www.freemart99.com"
 };
 
-export const defUrlPattern = "https://cli.re/nova88sports";
+export const defUrlPattern = {
+	m: "https://m.freemart99.com/id/?affCode=37356",
+	d: "https://cli.re/nova88sports"
+};
 
 const SiteURL =
 	process.env.NODE_ENV === "production"
