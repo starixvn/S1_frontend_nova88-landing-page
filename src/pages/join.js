@@ -193,10 +193,7 @@ const Join = () => {
 		const regx =
 			/^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 
-		if (val === "") {
-			checked = false;
-			msg = "msg_MailWrongFormat";
-		} else if (!regx.test(val)) {
+		if (val === "" || !regx.test(val)) {
 			checked = false;
 			msg = "msg_MailWrongFormat";
 		} else {
